@@ -67,6 +67,7 @@ export default grapesjs.plugins.add('gjs-plugin-uppy', (editor, opts = {}) => {
 
       if (!btnEl) {
         btnEl = document.createElement('button');
+        btnEl.setAttribute('type', 'button');
         btnEl.className = pfx + 'btn-prim ' + pfx + 'btn-uppy';
         btnEl.innerHTML = c.btnText;
       }
