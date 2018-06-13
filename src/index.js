@@ -30,11 +30,17 @@ export default grapesjs.plugins.add('gjs-plugin-uppy', (editor, opts = {}) => {
       }
     },
 
-    // On complete upload callback
-    // blobs - Array of Objects, eg. [{url:'...', filename: 'name.jpeg', ...}]
-    // assets - Array of inserted assets
-    // for debug: console.log(JSON.stringify(blobs));
-    onComplete: (blobs, assets) => { },
+    // complete callback
+    // https://uppy.io/docs/uppy/#complete
+    onComplete: (result) => {},
+
+    // upload-success callback
+    // https://uppy.io/docs/uppy/#upload-success
+    onUploadSuccess: (file, resp, uploadURL) => {},
+
+    // upload-error callback
+    // https: //uppy.io/docs/uppy/#upload-error
+    onUploadError: (file, error) => {},
   };
 
   // Load defaults
@@ -86,8 +92,16 @@ export default grapesjs.plugins.add('gjs-plugin-uppy', (editor, opts = {}) => {
       uppy.on('complete', result => {
         const blobs = result.successful;
         let assets = addAssets(blobs);
-        c.onComplete(blobs, assets);
+        c.onComplete(result);
       });
+
+      uppy.on('upload-success', (file, data, uploadURL) => {
+        c.onUploadSuccess(file, data, uploadURL);
+      });
+
+      uppy.on('upload-error', (file, error) => {
+        c.onUploadError(file, error);
+      })
     }
 
     assetsBody.insertBefore(btnEl, assetsHeader);
