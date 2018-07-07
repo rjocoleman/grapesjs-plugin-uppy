@@ -24,9 +24,6 @@ export default grapesjs.plugins.add('gjs-plugin-uppy', (editor, opts = {}) => {
       Dashboard: {
         trigger: null, // undefined is btnEl
         inline: false
-      },
-      Webcam: {
-        target: Uppy.Dashboard
       }
     },
 
